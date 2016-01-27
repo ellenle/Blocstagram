@@ -40,10 +40,17 @@
     return itemsFromInstance;
 }
 
+<<<<<<< HEAD
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+=======
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //return [DataSource sharedInstance].mediaItems.count;
+>>>>>>> 675d539c9f05e654cb8c0922afef65e91c5fbad8
     return [self items].count;
 }
 
@@ -99,12 +106,12 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"%i",self.images.count);
+       //NSLog(@"%i",self.images.count);
         //need to update image array + delete it from the collection
         [self.images removeObjectAtIndex:indexPath.row];
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-         NSLog(@"%i",self.images.count);
+         //NSLog(@"%i",self.images.count);
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
