@@ -40,17 +40,9 @@
     return itemsFromInstance;
 }
 
-<<<<<<< HEAD
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-=======
-#pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [DataSource sharedInstance].mediaItems.count;
->>>>>>> 675d539c9f05e654cb8c0922afef65e91c5fbad8
     return [self items].count;
 }
 
