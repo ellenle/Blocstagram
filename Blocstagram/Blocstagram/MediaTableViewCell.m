@@ -24,7 +24,9 @@ static UIFont *boldFont;
 static UIColor *usernameLabelGray;
 static UIColor *commentLabelGray;
 static UIColor *linkColor;
+static UIColor *firstCommentColor;
 static NSParagraphStyle *paragraphStyle;
+static NSParagraphStyle *evenParagraphStyle;
 
 @implementation MediaTableViewCell
 
@@ -52,9 +54,10 @@ static NSParagraphStyle *paragraphStyle;
 + (void) load {
     lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:11];
     boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11];
-    usernameLabelGray = [UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1]; /*#eeeeee*/
-    commentLabelGray= [UIColor colorWithRed:0.898 green:0.898 blue:0.898 alpha:1]; /*#e5e5e5*/
-    linkColor= [UIColor colorWithRed:0.345 green:0.314 blue:0.427 alpha:1]; /*#5506d*/
+    usernameLabelGray = [UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1]; /*#eeeeee - gray */
+    commentLabelGray= [UIColor colorWithRed:0.898 green:0.898 blue:0.898 alpha:1]; /*#e5e5e5 - gray */
+    linkColor= [UIColor colorWithRed:0.345 green:0.314 blue:0.427 alpha:1]; /*#58506d - purple */
+    firstCommentColor= [UIColor colorWithRed:1 green:0.35 blue:0 alpha:1]; /*#FFA500 - orange */
     
     NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     mutableParagraphStyle.headIndent = 20.0;
@@ -63,6 +66,15 @@ static NSParagraphStyle *paragraphStyle;
     mutableParagraphStyle.paragraphSpacingBefore = 5;
     
     paragraphStyle = mutableParagraphStyle;
+    
+    NSMutableParagraphStyle *evenMutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    evenMutableParagraphStyle.headIndent = 20.0;
+    evenMutableParagraphStyle.firstLineHeadIndent = 20.0;
+    evenMutableParagraphStyle.tailIndent = -20.0;
+    evenMutableParagraphStyle.paragraphSpacingBefore = 5;
+    evenMutableParagraphStyle.alignment = NSTextAlignmentRight;
+    
+    evenParagraphStyle = evenMutableParagraphStyle;
 }
 
 - (NSAttributedString *) usernameAndCaptionString {
@@ -86,7 +98,8 @@ static NSParagraphStyle *paragraphStyle;
 - (NSAttributedString *) commentString {
     NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] init];
     
-    for (Comment *comment in self.mediaItem.comments) {
+    for (int i = 0; i < self.mediaItem.comments.count; i++) {
+        Comment *comment = self.mediaItem.comments[i];
         // Make a string that says "username comment" followed by a line break
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
         
@@ -94,9 +107,18 @@ static NSParagraphStyle *paragraphStyle;
         
         NSMutableAttributedString *oneCommentString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : lightFont, NSParagraphStyleAttributeName : paragraphStyle}];
         
+        NSRange firstCommentLength = NSMakeRange(0, oneCommentString.length);
+        
+        if (i == 0) {
+            [oneCommentString addAttribute:NSForegroundColorAttributeName value:firstCommentColor range:firstCommentLength];
+        } else if (i % 2) {
+            [oneCommentString addAttribute:NSParagraphStyleAttributeName value:evenParagraphStyle range:firstCommentLength];
+        }
+        
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];
         [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+        [oneCommentString addAttribute:NSKernAttributeName value:@(2) range:firstCommentLength];
         
         [commentString appendAttributedString:oneCommentString];
     }
