@@ -11,7 +11,9 @@
 #import "Media.h"
 #import "Comment.h"
 
-@interface DataSource()
+@interface DataSource() {
+    NSMutableArray *_mediaItems;
+}
 
 @property (nonatomic, strong) NSArray *mediaItems;
 
@@ -113,17 +115,35 @@
     return [NSString stringWithString:s];
 }
 
-- (void)deleteItemAtIndex:(NSInteger)i {
-    NSArray *before = @[];
-    NSArray *after = @[];
-    before = [self.mediaItems subarrayWithRange:NSMakeRange(0, i)];
-    after = [self.mediaItems subarrayWithRange:NSMakeRange(i + 1, self.mediaItems.count - i - 1)];
-
-    NSArray *newMediaItems = [before arrayByAddingObjectsFromArray:after];
-//    NSArray *newMediaItems = [[self.mediaItems subarrayWithRange:NSMakeRange(0, i)] arrayByAddingObjectsFromArray:
-   //     [self.mediaItems subarrayWithRange:NSMakeRange(i + 1, self.mediaItems.count - i)]];
-    self.mediaItems = newMediaItems;
+- (void) deleteMediaItem:(Media *)item {
+    NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+    [mutableArrayWithKVO removeObject:item];
 }
 
+#pragma mark - Key/Value Observing
+
+- (NSUInteger) countOfMediaItems {
+    return self.mediaItems.count;
+}
+
+- (id) objectInMediaItemsAtIndex:(NSUInteger)index {
+    return [self.mediaItems objectAtIndex:index];
+}
+
+- (NSArray *) mediaItemsAtIndexes:(NSIndexSet *)indexes {
+    return [self.mediaItems objectsAtIndexes:indexes];
+}
+
+- (void) insertObject:(Media *)object inMediaItemsAtIndex:(NSUInteger)index {
+    [_mediaItems insertObject:object atIndex:index];
+}
+
+- (void) removeObjectFromMediaItemsAtIndex:(NSUInteger)index {
+    [_mediaItems removeObjectAtIndex:index];
+}
+
+- (void) replaceObjectInMediaItemsAtIndex:(NSUInteger)index withObject:(id)object {
+    [_mediaItems replaceObjectAtIndex:index withObject:object];
+}
 
 @end
