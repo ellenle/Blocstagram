@@ -113,5 +113,17 @@
     return [NSString stringWithString:s];
 }
 
+- (void)deleteItemAtIndex:(NSInteger)i {
+    NSArray *before = @[];
+    NSArray *after = @[];
+    before = [self.mediaItems subarrayWithRange:NSMakeRange(0, i)];
+    after = [self.mediaItems subarrayWithRange:NSMakeRange(i + 1, self.mediaItems.count - i - 1)];
+
+    NSArray *newMediaItems = [before arrayByAddingObjectsFromArray:after];
+//    NSArray *newMediaItems = [[self.mediaItems subarrayWithRange:NSMakeRange(0, i)] arrayByAddingObjectsFromArray:
+   //     [self.mediaItems subarrayWithRange:NSMakeRange(i + 1, self.mediaItems.count - i)]];
+    self.mediaItems = newMediaItems;
+}
+
 
 @end
