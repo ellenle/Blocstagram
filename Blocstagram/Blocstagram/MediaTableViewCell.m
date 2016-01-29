@@ -136,7 +136,7 @@ static NSParagraphStyle *evenParagraphStyle;
 
 - (void) layoutSubviews {
     [super layoutSubviews];
-    
+    if (self.mediaItem) {
     CGFloat imageHeight = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
     self.mediaImageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.bounds), imageHeight);
     
@@ -148,6 +148,7 @@ static NSParagraphStyle *evenParagraphStyle;
     
     // Hide the line between cells
     self.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.bounds)/2.0, 0, CGRectGetWidth(self.bounds)/2.0);
+    }
 }
 
 - (void) setMediaItem:(Media *)mediaItem {
