@@ -122,7 +122,7 @@
 
 - (void) addMediaItem:(Media *)item {
     NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
-    [mutableArrayWithKVO insertObject:item atIndex:0]; //add it where?
+    [mutableArrayWithKVO insertObject:item atIndex:0];
 }
 
 #pragma mark - Key/Value Observing
