@@ -129,6 +129,16 @@
         // Delete the row from the data source
         Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
         [[DataSource sharedInstance] deleteMediaItem:item];
+        [[DataSource sharedInstance] addMediaItem:item];
+        
+//        - (void) insertObject:(Media *)object inMediaItemsAtIndex:(NSUInteger)index {
+//            [_mediaItems insertObject:object atIndex:index];
+//        }
+//        
+//        - (void) removeObjectFromMediaItemsAtIndex:(NSUInteger)index {
+//            [_mediaItems removeObjectAtIndex:index];
+//        }
+        
     }
 }
 
