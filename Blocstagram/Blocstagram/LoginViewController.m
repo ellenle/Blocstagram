@@ -89,7 +89,5 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     return YES;
 }
 
-
-
 @end
 
