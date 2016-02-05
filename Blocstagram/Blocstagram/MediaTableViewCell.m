@@ -223,4 +223,15 @@ static NSParagraphStyle *evenParagraphStyle;
     return CGRectGetMaxY(layoutCell.commentLabel.frame);
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:animated];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:NO animated:animated];
+    
+}
+
+
 @end
