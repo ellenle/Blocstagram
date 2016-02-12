@@ -58,10 +58,14 @@
                         [self willChangeValueForKey:@"mediaItems"];
                         self.mediaItems = mutableMediaItems;
                         [self didChangeValueForKey:@"mediaItems"];
+                        
                         // #1
                         for (Media* mediaItem in self.mediaItems) {
                             [self downloadImageForMediaItem:mediaItem];
                         }
+                        
+                        // loads new images if new ones appeared since we last opened the app
+                        [self requestNewItemsWithCompletionHandler:nil];
                         
                     } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
