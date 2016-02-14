@@ -14,6 +14,7 @@
 @property (nonatomic, strong) Media *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+@property (nonatomic, strong) UIButton *shareButton;
 
 @end
 
@@ -31,6 +32,12 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    //#0 create share button up top
+    self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.shareButton setTitle:NSLocalizedString(@"Share!", @"Share button") forState:UIControlStateNormal];
+    [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.shareButton];
     
     //#1 create and configure scroll view and make it the only subview of self.view
     self.scrollView = [UIScrollView new];
@@ -64,6 +71,16 @@
     
     // #4 set the scroll view's frame to the view's bounds
     self.scrollView.frame = self.view.bounds;
+    CGFloat itemHeight = 70;
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    CGFloat scrollViewHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
+    CGFloat shareButtonWidth = width / 3;
+    
+    self.shareButton.frame = CGRectMake(CGRectGetMaxX(self.view.bounds) - shareButtonWidth, 0, shareButtonWidth, itemHeight);
+    self.scrollView.frame = CGRectMake(0, CGRectGetMaxY(self.shareButton.frame), width, scrollViewHeight);
+    self.shareButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.shareButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.shareButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     // #5
     CGSize scrollViewFrameSize = self.scrollView.frame.size;
@@ -146,6 +163,12 @@
     }
 }
 
+- (void) shareButtonPressed {
+    if (self.imageView) {
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.imageView.image] applicationActivities:nil];
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    }
+}
 
 @end
 
