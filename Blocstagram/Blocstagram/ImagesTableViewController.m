@@ -183,6 +183,8 @@
 
 #pragma mark - MediaTableViewCellDelegate
 
+
+
 - (void) cell:(MediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
     
     self.lastTappedImageView = imageView;
@@ -210,6 +212,12 @@
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityVC animated:YES completion:nil];
     }
+}
+
+- (void) cell:(MediaTableViewCell *)cell didTwoFingerTouchImageViewWithMediaItem:(Media *)mediaItem {
+    // retry an image download
+    [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
