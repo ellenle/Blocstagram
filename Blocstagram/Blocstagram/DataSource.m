@@ -172,7 +172,7 @@
 }
 
 + (NSString *) instagramClientID {
-    return @"88f80084c02947cea41b7ea63f6635ad";
+    return @"xxx";
 }
 
 - (void) populateDataWithParameters:(NSDictionary *)parameters completionHandler:(NewItemCompletionBlock)completionHandler {
@@ -323,7 +323,7 @@
     if (mediaItem.likeState == LikeStateNotLiked) {
         
         mediaItem.likeState = LikeStateLiking;
-        
+        mediaItem.likeCount++;
         [self.instagramOperationManager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             mediaItem.likeState = LikeStateLiked;
             
@@ -332,7 +332,7 @@
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             mediaItem.likeState = LikeStateNotLiked;
-            
+            mediaItem.likeCount--;
             if (completionHandler) {
                 completionHandler();
             }
@@ -341,7 +341,7 @@
     } else if (mediaItem.likeState == LikeStateLiked) {
         
         mediaItem.likeState = LikeStateUnliking;
-        
+        mediaItem.likeCount--;
         [self.instagramOperationManager DELETE:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             mediaItem.likeState = LikeStateNotLiked;
             
@@ -350,6 +350,7 @@
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             mediaItem.likeState = LikeStateLiked;
+            mediaItem.likeCount++;
             
             if (completionHandler) {
                 completionHandler();
