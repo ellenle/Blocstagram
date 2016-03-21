@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UILabel *usernameAndCaptionLabel;
 @property (nonatomic, strong) UILabel *commentLabel;
 @property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
-//@property (nonatomic, strong) NSLayoutConstraint *imageWidthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
 
@@ -79,9 +78,10 @@ static NSParagraphStyle *evenParagraphStyle;
         
         self.likeCount = [[UILabel alloc] init];
         self.likeCount.text = @"0";
+        self.likeCount.backgroundColor = usernameLabelGray;
         //likes - count u
         
-        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeCount, self.likeButton]) {
+        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.likeCount, self.likeButton, self.commentLabel]) {
             [self.contentView addSubview:view];
             view.translatesAutoresizingMaskIntoConstraints = NO;
         }
@@ -89,7 +89,7 @@ static NSParagraphStyle *evenParagraphStyle;
         NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeCount, _likeButton);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|" options:kNilOptions metrics:nil views:viewDictionary]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_likeCount][_likeButton(==38)]|" options:kNilOptions metrics:nil views:viewDictionary]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_likeCount][_likeButton(==38)]|" options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mediaImageView][_usernameAndCaptionLabel][_commentLabel]"
@@ -104,15 +104,6 @@ static NSParagraphStyle *evenParagraphStyle;
                                                                 multiplier:1
                                                                 constant:100];
         self.imageHeightConstraint.identifier = @"Image height constraint";
-        
-//        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
-//                                                                  attribute:NSLayoutAttributeWidth
-//                                                                  relatedBy:NSLayoutRelationEqual
-//                                                                     toItem:nil
-//                                                                  attribute:NSLayoutAttributeNotAnAttribute
-//                                                                 multiplier:1
-//                                                                   constant:100];
-//        self.imageWidthConstraint.identifier = @"Image width constraint";
         
         self.usernameAndCaptionLabelHeightConstraint = [NSLayoutConstraint constraintWithItem:_usernameAndCaptionLabel
                                                                 attribute:NSLayoutAttributeHeight
@@ -129,7 +120,7 @@ static NSParagraphStyle *evenParagraphStyle;
                                                                 toItem:nil
                                                                 attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:1
-                                                                constant:100];
+                                                                constant:120];
         self.commentLabelHeightConstraint.identifier = @"Comment label height constraint";
         
         [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightConstraint]];
@@ -140,7 +131,7 @@ static NSParagraphStyle *evenParagraphStyle;
 
 //class method, not an instance method!
 + (void) load {
-    lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:11];
+    lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:10];
     boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11];
     usernameLabelGray = [UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1]; /*#eeeeee - gray */
     commentLabelGray= [UIColor colorWithRed:0.898 green:0.898 blue:0.898 alpha:1]; /*#e5e5e5 - gray */
@@ -197,11 +188,13 @@ static NSParagraphStyle *evenParagraphStyle;
         
         NSRange firstCommentLength = NSMakeRange(0, oneCommentString.length);
         
-        if (i == 0) {
-            [oneCommentString addAttribute:NSForegroundColorAttributeName value:firstCommentColor range:firstCommentLength];
-        } else if (i % 2) {
-            [oneCommentString addAttribute:NSParagraphStyleAttributeName value:evenParagraphStyle range:firstCommentLength];
-        }
+         [oneCommentString addAttribute:NSForegroundColorAttributeName value:firstCommentColor range:firstCommentLength];
+        
+//        if (i == 0) {
+//            [oneCommentString addAttribute:NSForegroundColorAttributeName value:firstCommentColor range:firstCommentLength];
+//        } else if (i % 2) {
+//            [oneCommentString addAttribute:NSParagraphStyleAttributeName value:evenParagraphStyle range:firstCommentLength];
+//        }
         
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];

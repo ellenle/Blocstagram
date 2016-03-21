@@ -210,6 +210,10 @@
         Media *mediaItem = [[Media alloc] initWithDictionary:mediaDictionary];
         
         if (mediaItem) {
+            if ([mediaDictionary[@"comments"][@"count"] intValue] > 0) {
+                [self fetchCommentsForMediaItem:mediaItem];
+            }
+            
             [tmpMediaItems addObject:mediaItem];
         }
     }
@@ -231,14 +235,34 @@
             self.thereAreNoMoreOlderMessages = YES;
         } else {
             [mutableArrayWithKVO addObjectsFromArray:tmpMediaItems];
-    }
-        
+        }
     } else {
         [self willChangeValueForKey:@"mediaItems"];
         self.mediaItems = tmpMediaItems;
         [self didChangeValueForKey:@"mediaItems"];
     }
     [self saveImages];
+}
+
+- (void) fetchCommentsForMediaItem:(Media *)mediaItem {
+    if (self.accessToken) {
+        // only try to get the data if there's an access token
+        
+        [self.instagramOperationManager GET:[NSString stringWithFormat:@"media/%@/comments", mediaItem.idNumber]
+                                 parameters:@{@"access_token": self.accessToken}
+                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                                            
+                                            NSArray *commentsArray = responseObject[@"data"];
+                                            NSMutableArray *parsedCommentsArray = [[NSMutableArray alloc] init];
+                                            for (NSDictionary *commentDictionary in commentsArray) {
+                                                Comment *comment = [[Comment alloc] initWithDictionary:commentDictionary];
+                                                [parsedCommentsArray addObject:comment];
+                                            }
+                                            mediaItem.comments = parsedCommentsArray;
+                                        }
+                                    } failure:nil];
+    }
 }
 
 - (void) saveImages {

@@ -30,7 +30,7 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-        self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+        self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         
         self.likeButtonState = LikeStateNotLiked;
     }
