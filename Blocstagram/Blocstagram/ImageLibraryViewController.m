@@ -39,6 +39,23 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self loadAssets];
+                    [self.collectionView reloadData];
+                });
+            }
+        }];
+    } else if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
+        [self loadAssets];
+    }
+}
+
 - (void) cancelPressed:(UIBarButtonItem *)sender {
     [self.delegate imageLibraryViewController:self didCompleteWithImage:nil];
 }
@@ -46,15 +63,17 @@
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
+    CGFloat padding = 2;
+    
     CGFloat width = CGRectGetWidth(self.view.frame);
-    CGFloat minWidth = 100;
+    CGFloat minWidth = width / 4;
     NSInteger divisor = width / minWidth;
-    CGFloat cellSize = width / divisor;
+    CGFloat cellSize = (width / divisor) - padding;
     
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
     flowLayout.itemSize = CGSizeMake(cellSize, cellSize);
-    flowLayout.minimumInteritemSpacing = 0;
-    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumInteritemSpacing = padding;
+    flowLayout.minimumLineSpacing = padding;
 }
 
 - (void) loadAssets {
