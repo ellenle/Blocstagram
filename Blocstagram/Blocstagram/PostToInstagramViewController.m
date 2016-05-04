@@ -7,6 +7,7 @@
 //
 
 #import "PostToInstagramViewController.h"
+#import "subclassUICollectionViewCell.h"
 
 @interface PostToInstagramViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIDocumentInteractionControllerDelegate>
 
@@ -42,7 +43,7 @@
         self.navigationItem.rightBarButtonItem = self.sendBarButton;
     }
     
-    [self.filterCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.filterCollectionView registerClass:[subclassUICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.filterCollectionView.backgroundColor = [UIColor whiteColor];
@@ -136,7 +137,7 @@
 }
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    subclassUICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     static NSInteger imageViewTag = 1000;
     static NSInteger labelTag = 1001;
@@ -332,6 +333,37 @@
             [composite setValue:darkScratchesImage forKey:kCIInputBackgroundImageKey];
             
             [self addCIImageToCollectionView:composite.outputImage withFilterTitle:NSLocalizedString(@"Film", @"Film Filter")];
+        }
+    }];
+    
+    // Kaleidoscope filter
+    
+    [self.photoFilterOperationQueue addOperationWithBlock:^{
+        CIFilter *kaleidoscopeFilter = [CIFilter filterWithName:@"CIKaleidoscope"];
+        
+        if (kaleidoscopeFilter) {
+            [kaleidoscopeFilter setValue:sourceCIImage forKey:kCIInputImageKey];
+            [self addCIImageToCollectionView:kaleidoscopeFilter.outputImage withFilterTitle:NSLocalizedString(@"Kaleidoscope", @"Kaleidoscope Filter")];
+        }
+    }];
+    
+    // Insert compound filter - aka Emo!
+    
+    [self.photoFilterOperationQueue addOperationWithBlock:^{
+        CIFilter *gloomFilter = [CIFilter filterWithName:@"CIGloom"];
+        CIFilter *vortexFilter = [CIFilter filterWithName:@"CIVortexDistortion"];
+        
+        if (gloomFilter) {
+            [gloomFilter setValue:sourceCIImage forKey:kCIInputImageKey];
+            
+            CIImage *result = gloomFilter.outputImage;
+            
+            if (vortexFilter) {
+                [vortexFilter setValue:result forKeyPath:kCIInputImageKey];
+                result = vortexFilter.outputImage;
+            }
+            
+            [self addCIImageToCollectionView:result withFilterTitle:NSLocalizedString(@"Emo", @"Emo Filter")];
         }
     }];
 
