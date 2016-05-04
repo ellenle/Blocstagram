@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62ADC272F33272E8B8669ADB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FED29593EB0171F76ACE17EE /* libPods.a */; };
+		8C5ED90B1CCD3F3F00B5653A /* PostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5ED90A1CCD3F3F00B5653A /* PostToInstagramViewController.m */; };
 		8C7F7B791CBCC7410062937E /* CropBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B781CBCC7410062937E /* CropBox.m */; };
 		8C7F7B7C1CBDD7790062937E /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B7B1CBDD7790062937E /* CropImageViewController.m */; };
 		8C7F7B7F1CBDED3F0062937E /* ImageLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B7E1CBDED3F0062937E /* ImageLibraryViewController.m */; };
@@ -55,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		3C1418D09D98BA975B2E5D10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8C5ED9091CCD3F3F00B5653A /* PostToInstagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostToInstagramViewController.h; sourceTree = "<group>"; };
+		8C5ED90A1CCD3F3F00B5653A /* PostToInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostToInstagramViewController.m; sourceTree = "<group>"; };
 		8C7F7B771CBCC7410062937E /* CropBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropBox.h; sourceTree = "<group>"; };
 		8C7F7B781CBCC7410062937E /* CropBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropBox.m; sourceTree = "<group>"; };
 		8C7F7B7A1CBDD7790062937E /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				8CDFE7AC1C7127E9009DDB6F /* MediaFullScreenViewController.m */,
 				8CEB0DFB1C587CA700152431 /* MediaTableViewCell.h */,
 				8CEB0DFC1C587CA700152431 /* MediaTableViewCell.m */,
+				8C5ED9091CCD3F3F00B5653A /* PostToInstagramViewController.h */,
+				8C5ED90A1CCD3F3F00B5653A /* PostToInstagramViewController.m */,
 				8CE641581CB4CF8A00E562A4 /* UIImage+ImageUtilities.h */,
 				8CE641591CB4CF8A00E562A4 /* UIImage+ImageUtilities.m */,
 				8CEB0DEB1C57574200152431 /* User.h */,
@@ -438,6 +443,7 @@
 				8CE641571CB4BC3F00E562A4 /* CameraViewController.m in Sources */,
 				8CE641541CB0899300E562A4 /* CameraToolbar.m in Sources */,
 				8C891EB61C4F49290076E58F /* main.m in Sources */,
+				8C5ED90B1CCD3F3F00B5653A /* PostToInstagramViewController.m in Sources */,
 				8C7F7B7F1CBDED3F0062937E /* ImageLibraryViewController.m in Sources */,
 				8CE322471C717BD900041187 /* LikeButton.m in Sources */,
 				8CE6415A1CB4CF8A00E562A4 /* UIImage+ImageUtilities.m in Sources */,
@@ -594,10 +600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -614,10 +617,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = BlocstagramTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ellenle.$(PRODUCT_NAME:rfc1034identifier)";
