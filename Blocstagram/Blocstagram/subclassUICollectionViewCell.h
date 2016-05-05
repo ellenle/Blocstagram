@@ -10,4 +10,6 @@
 
 @interface subclassUICollectionViewCell : UICollectionViewCell
 
+- (void)setupWithLayout:(UICollectionViewFlowLayout *)layout image:(UIImage *)image text:(NSString *)text;
+
 @end

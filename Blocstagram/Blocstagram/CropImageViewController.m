@@ -96,9 +96,9 @@
     CGRect visibleRect;
     float scale = 1.0f / self.scrollView.zoomScale / self.media.image.scale;
     visibleRect.origin.x = self.scrollView.contentOffset.x * scale;
-    visibleRect.origin.y = self.scrollView.contentOffset.y * scale;
+    visibleRect.origin.y = (self.scrollView.contentOffset.y + self.topView.frame.size.height) * scale;
     visibleRect.size.width = self.scrollView.bounds.size.width * scale;
-    visibleRect.size.height = self.scrollView.bounds.size.height * scale;
+    visibleRect.size.height = self.scrollView.bounds.size.width * scale;
     
     UIImage *scrollViewCrop = [self.media.image imageWithFixedOrientation];
     scrollViewCrop = [scrollViewCrop imageCroppedToRect:visibleRect];
