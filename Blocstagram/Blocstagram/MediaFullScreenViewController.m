@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 @property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) UITapGestureRecognizer *tapTopBar;
 
 @end
 
@@ -54,6 +55,8 @@
     //#3
     self.scrollView.contentSize = self.media.image.size;
     
+    self.tapTopBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
     
     self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapFired:)];
@@ -61,8 +64,11 @@
     
     [self.tap requireGestureRecognizerToFail:self.doubleTap];
     
+    [self.view addGestureRecognizer:self.tapTopBar];
+    
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
+
 }
 
 - (void) viewWillLayoutSubviews {
