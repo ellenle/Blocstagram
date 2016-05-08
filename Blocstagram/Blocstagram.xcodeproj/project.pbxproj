@@ -10,6 +10,7 @@
 		62ADC272F33272E8B8669ADB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FED29593EB0171F76ACE17EE /* libPods.a */; };
 		8C5ED90B1CCD3F3F00B5653A /* PostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5ED90A1CCD3F3F00B5653A /* PostToInstagramViewController.m */; };
 		8C5ED90E1CD9952200B5653A /* subclassUICollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5ED90D1CD9952200B5653A /* subclassUICollectionViewCell.m */; };
+		8C5ED9101CDEF4E300B5653A /* UserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5ED90F1CDEF4E300B5653A /* UserTests.m */; };
 		8C7F7B791CBCC7410062937E /* CropBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B781CBCC7410062937E /* CropBox.m */; };
 		8C7F7B7C1CBDD7790062937E /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B7B1CBDD7790062937E /* CropImageViewController.m */; };
 		8C7F7B7F1CBDED3F0062937E /* ImageLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F7B7E1CBDED3F0062937E /* ImageLibraryViewController.m */; };
@@ -61,6 +62,7 @@
 		8C5ED90A1CCD3F3F00B5653A /* PostToInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostToInstagramViewController.m; sourceTree = "<group>"; };
 		8C5ED90C1CD9952200B5653A /* subclassUICollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subclassUICollectionViewCell.h; sourceTree = "<group>"; };
 		8C5ED90D1CD9952200B5653A /* subclassUICollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subclassUICollectionViewCell.m; sourceTree = "<group>"; };
+		8C5ED90F1CDEF4E300B5653A /* UserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTests.m; sourceTree = "<group>"; };
 		8C7F7B771CBCC7410062937E /* CropBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropBox.h; sourceTree = "<group>"; };
 		8C7F7B781CBCC7410062937E /* CropBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropBox.m; sourceTree = "<group>"; };
 		8C7F7B7A1CBDD7790062937E /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				8C891ECF1C4F49290076E58F /* BlocstagramTests.m */,
 				8C891ECD1C4F49290076E58F /* Supporting Files */,
+				8C5ED90F1CDEF4E300B5653A /* UserTests.m */,
 			);
 			path = BlocstagramTests;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C5ED9101CDEF4E300B5653A /* UserTests.m in Sources */,
 				8C891ED01C4F49290076E58F /* BlocstagramTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
